@@ -8,6 +8,8 @@ import { Coffee } from './entities/coffee.entity';
 import { Flavor } from './entities/flavor.entity';
 import { Event } from 'src/events/entities/event.entity';
 import { COFFEE_BRANDS } from './coffees.constants';
+import { ConfigType } from '@nestjs/config';
+import coffeesConfig from './config/coffees.config';
 
 @Injectable()
 export class CoffeesService {
@@ -17,8 +19,13 @@ export class CoffeesService {
     @InjectRepository(Flavor)
     private readonly flavorRepository: Repository<Flavor>,
     private readonly dataSource: DataSource,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     @Inject(COFFEE_BRANDS) coffeeBrands: string[],
-  ) {}
+    @Inject(coffeesConfig.KEY)
+    private readonly coffeeConfiguration: ConfigType<typeof coffeesConfig>,
+  ) {
+    console.log(coffeeConfiguration.foo);
+  }
 
   findAll(paginationQuery: PaginationQuery): Promise<Coffee[]> {
     const { limit, offset } = paginationQuery;
