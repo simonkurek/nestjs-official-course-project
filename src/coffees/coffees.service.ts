@@ -1,12 +1,12 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { PaginationQuery } from 'src/common/dto/pagination-query.dto';
+import { PaginationQuery } from '../common/dto/pagination-query.dto';
 import { DataSource, Repository } from 'typeorm';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 import { Coffee } from './entities/coffee.entity';
 import { Flavor } from './entities/flavor.entity';
-import { Event } from 'src/events/entities/event.entity';
+import { Event } from '../events/entities/event.entity';
 import { COFFEE_BRANDS } from './coffees.constants';
 import { ConfigType } from '@nestjs/config';
 import coffeesConfig from './config/coffees.config';
@@ -21,10 +21,10 @@ export class CoffeesService {
     private readonly dataSource: DataSource,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     @Inject(COFFEE_BRANDS) coffeeBrands: string[],
-    @Inject(coffeesConfig.KEY)
-    private readonly coffeeConfiguration: ConfigType<typeof coffeesConfig>,
+    // @Inject(coffeesConfig.KEY)
+    // private readonly coffeeConfiguration: ConfigType<typeof coffeesConfig>,
   ) {
-    console.log(coffeeConfiguration.foo);
+    // console.log(coffeeConfiguration.foo);
   }
 
   findAll(paginationQuery: PaginationQuery): Promise<Coffee[]> {
